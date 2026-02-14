@@ -14,16 +14,357 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      delivery_logs: {
+        Row: {
+          created_at: string
+          customer_id: string
+          delivery_date: string
+          id: string
+          notes: string | null
+          status: string
+          subscription_id: string
+          vendor_id: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          delivery_date?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          subscription_id: string
+          vendor_id: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          delivery_date?: string
+          id?: string
+          notes?: string | null
+          status?: string
+          subscription_id?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_logs_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_logs_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          customer_id: string
+          id: string
+          rating: number
+          vendor_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          customer_id: string
+          id?: string
+          rating: number
+          vendor_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          customer_id?: string
+          id?: string
+          rating?: number
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          amount: number
+          auto_renew: boolean | null
+          created_at: string
+          customer_id: string
+          delivery_address: string
+          delivery_pincode: string
+          end_date: string | null
+          id: string
+          meal_type: string
+          plan_type: string
+          start_date: string
+          status: string
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          amount: number
+          auto_renew?: boolean | null
+          created_at?: string
+          customer_id: string
+          delivery_address: string
+          delivery_pincode: string
+          end_date?: string | null
+          id?: string
+          meal_type?: string
+          plan_type: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          amount?: number
+          auto_renew?: boolean | null
+          created_at?: string
+          customer_id?: string
+          delivery_address?: string
+          delivery_pincode?: string
+          end_date?: string | null
+          id?: string
+          meal_type?: string
+          plan_type?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          priority: string
+          status: string
+          subject: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          priority?: string
+          status?: string
+          subject: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          priority?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vendors: {
+        Row: {
+          address: string | null
+          avg_rating: number | null
+          business_name: string
+          city: string | null
+          created_at: string
+          delivery_pincodes: string[] | null
+          delivery_time_minutes: number | null
+          description: string | null
+          food_type: string
+          fssai_license: string | null
+          hygiene_rating: number | null
+          id: string
+          is_approved: boolean | null
+          is_verified: boolean | null
+          kitchen_images: string[] | null
+          monthly_price: number | null
+          price_per_meal: number | null
+          total_reviews: number | null
+          updated_at: string
+          user_id: string
+          weekly_price: number | null
+        }
+        Insert: {
+          address?: string | null
+          avg_rating?: number | null
+          business_name: string
+          city?: string | null
+          created_at?: string
+          delivery_pincodes?: string[] | null
+          delivery_time_minutes?: number | null
+          description?: string | null
+          food_type?: string
+          fssai_license?: string | null
+          hygiene_rating?: number | null
+          id?: string
+          is_approved?: boolean | null
+          is_verified?: boolean | null
+          kitchen_images?: string[] | null
+          monthly_price?: number | null
+          price_per_meal?: number | null
+          total_reviews?: number | null
+          updated_at?: string
+          user_id: string
+          weekly_price?: number | null
+        }
+        Update: {
+          address?: string | null
+          avg_rating?: number | null
+          business_name?: string
+          city?: string | null
+          created_at?: string
+          delivery_pincodes?: string[] | null
+          delivery_time_minutes?: number | null
+          description?: string | null
+          food_type?: string
+          fssai_license?: string | null
+          hygiene_rating?: number | null
+          id?: string
+          is_approved?: boolean | null
+          is_verified?: boolean | null
+          kitchen_images?: string[] | null
+          monthly_price?: number | null
+          price_per_meal?: number | null
+          total_reviews?: number | null
+          updated_at?: string
+          user_id?: string
+          weekly_price?: number | null
+        }
+        Relationships: []
+      }
+      weekly_menus: {
+        Row: {
+          created_at: string
+          day_of_week: number
+          description: string | null
+          id: string
+          items: string[]
+          meal_type: string
+          vendor_id: string
+        }
+        Insert: {
+          created_at?: string
+          day_of_week: number
+          description?: string | null
+          id?: string
+          items?: string[]
+          meal_type?: string
+          vendor_id: string
+        }
+        Update: {
+          created_at?: string
+          day_of_week?: number
+          description?: string | null
+          id?: string
+          items?: string[]
+          meal_type?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_menus_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "vendor" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +491,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "vendor", "customer"],
+    },
   },
 } as const
